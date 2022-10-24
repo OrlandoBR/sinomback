@@ -1,4 +1,5 @@
 const express = require('express')
+const { dbConnection } = require('../database/config')
 
 class Server {
     constructor(){
@@ -6,11 +7,18 @@ class Server {
         this.port = process.env.PORT
         this.usuariosPath = '/api'
 
+        //Conectar a Base de Datos
+        this.conectarDB()
+
         //Middleware
         this.middlewares()
         
         //Rutas
         this.routes()
+    }
+
+    async conectarDB(){
+        await dbConnection()
     }
 
     middlewares(){
@@ -22,7 +30,10 @@ class Server {
     }
 
     routes(){
-        this.app.use(this.usuariosPath , require('../routes/maestros'))
+        this.app.use(this.usuariosPath , require('../routes/maestros.routes'))
+        this.app.use(this.usuariosPath , require('../routes/catalogos.routes'))
+        this.app.use(this.usuariosPath , require('../routes/plazas.routes'))
+        this.app.use(this.usuariosPath , require('../routes/nomina.routes'))
     }
 
     listen(){

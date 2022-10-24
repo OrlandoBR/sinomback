@@ -6,7 +6,8 @@ const { maestrosGet,
         maestroDelete, 
         mtroCuentaGet, 
         mtroCuentaPost, 
-        mtroCuentaPut 
+        maestrosGetId,
+        maestroGetId_Siguiente
     } = require('../controllers/maestros.controller')
 
 const router = Router()
@@ -17,12 +18,14 @@ router.get('/', (req,res)=>{
 })
 
 router.get('/maestro', maestrosGet)
+router.get('/maestro/:id', maestrosGetId)
 router.post('/maestro', maestrosPost )
-router.put('/maestro/:id', maestroPut)
+router.put('/maestro', maestroPut)
 router.delete('/maestro', maestroDelete)
 
-router.get('/ctabanco', mtroCuentaGet)
-router.post('/ctabanco', mtroCuentaPost)
-router.put('/ctabanco', mtroCuentaPut)
+router.get('/maestro_id/:secc',maestroGetId_Siguiente)
+
+router.get('/mbanco', mtroCuentaGet)
+router.post('/mbanco', mtroCuentaPost)
 
 module.exports = router
